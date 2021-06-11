@@ -6,11 +6,11 @@ public class IteratorList <T extends Comparable<T>> implements Iterator<T>{
         this.iterator = list.getPrimero();
     }
 
-    public NodoLinkedList<T> getIter() {
+    public NodoLinkedList<T> getIterator() {
         return iterator;
     }
 
-    public void setIter(NodoLinkedList<T> iter) {
+    public void setIterator(NodoLinkedList<T> iter) {
         this.iterator = iter;
     }
 

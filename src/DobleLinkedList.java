@@ -90,7 +90,7 @@ public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, 
     }
 
     @Override
-    public Iterator<T> iterator() {
+    public IteratorList<T> iterator() {
         return new IteratorList<T>(this);
     }
 
@@ -128,16 +128,85 @@ public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, 
 
     @Override
     public void Esborrar(T data) {
+        if(primero==null){
+            throw new RuntimeException("Lista vacia");
+        }else{
+            IteratorList<T> iterator =  this.iterator();
+            while (iterator.hasNext() && (iterator.getIterator().getValor()!=data)){
+                iterator.next();
+            }
+            if(iterator.getIterator().getValor()!=data){
+                throw new RuntimeException("No esta el valor buscado");
+            }else{
+                if(iterator.getIterator()==primero){
+                    if(iterator.getIterator().getSiguiente()==null){
+                        pdi = null;
+                        primero= null;
+                        ultimo= null;
+                    }else {
+                        NodoLinkedList<T> aux = iterator.getIterator().getSiguiente();
+                        aux.setAnterioir(null);
+                        Avancar();
+                        primero=aux;
+                    }
+                }else {
+                    if (iterator.getIterator() == ultimo) {
+                        NodoLinkedList<T> aux = iterator.getIterator().getAnterioir();
+                        aux.setSiguiente(null);
+                        Retrocedir();
+                        ultimo = aux;
+                    } else {
+                        if(pdi == iterator.getIterator()){
+                            pdi = iterator.getIterator().getSiguiente();
+                        }
+                        NodoLinkedList<T> siguiente = iterator.getIterator().getSiguiente();
+                        NodoLinkedList<T> anterior = iterator.getIterator().getAnterioir();
+                        siguiente.setAnterioir(anterior);
+                        anterior.setSiguiente(siguiente);
+                    }
+                }
+            }
+        }
 
     }
 
     @Override
     public int Longitud() {
-        return 0;
+        int contador = 0;
+        IteratorList<T> iterator = this.iterator();
+        while (iterator.hasNext()){
+            contador++;
+            iterator.next();
+        }
+        contador++;
+        return contador;
     }
 
     @Override
     public int Buscar(T data) {
-        return 0;
+        int contador = 1;
+        IteratorList<T> iterator = this.iterator();
+        while (iterator.getIterator().getValor()!= data && iterator.getIterator()!=ultimo){
+            contador++;
+            iterator.next();
+        }
+        if(iterator.getIterator().getValor()!= data){
+            throw new RuntimeException("No existe este valor, se ha utilizado "+ contador + " veces la funcion");
+        }
+        return contador;
+    }
+
+    @Override
+    public String toString(){
+        String lista = "";
+        IteratorList<T> iterator = this.iterator();
+        if(primero!=null){
+            do{
+                lista = lista + iterator.next() + "\n";
+            }while (iterator.hasNext());
+            lista = lista = lista + iterator.getIterator().getValor() + "\n";
+        }
+
+        return lista;
     }
 }
