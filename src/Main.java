@@ -8,9 +8,11 @@ public class Main {
         lista.Inserir(8);
         lista.Inserir(6);
         lista.Inserir(2);
+        lista.Esborrar(6);
         lista.Inserir(5);
-        lista.Inserir(6);
         lista.Inserir(9);
+        System.out.println(lista.toString());
+
 
         /*
         DobleLinkedList<Integer> lista = new DobleLinkedList<Integer>();

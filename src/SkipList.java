@@ -11,6 +11,30 @@ public class SkipList <T extends Comparable<T>> implements Base<T>{
     }
 
     @Override
+    public String toString() {
+        String aux = "";
+        int nivel = head.getNivel();
+        while (nivel != 0) {
+            nivel = nivel - 1;
+            NodoSkipList<T> current = head.getSiguientes(nivel);
+
+            aux = aux + "Nivel: " + nivel + "\n";
+            if (current != null) {
+                aux = aux + current.getValor();
+                current = current.getSiguientes(nivel);
+            }
+            while (current != null) {
+                aux = aux + "," + current.getValor();
+                current = current.getSiguientes(nivel);
+
+            }
+            aux = aux + "\n";
+        }
+
+        return aux;
+    }
+
+    @Override
     public void Crear() {
 
     }
@@ -67,16 +91,64 @@ public class SkipList <T extends Comparable<T>> implements Base<T>{
 
     @Override
     public void Esborrar(T data) {
+        int nivel = head.getNivel()-1;
+        NodoSkipList<T> aux = head;
+        while (nivel!=-1){
+            while ((aux.getSiguientes(nivel) != null) && (aux.getSiguientes(nivel).getValor().compareTo(data) < 0)){
+                aux = aux.getSiguientes(nivel);
+                while (aux.getSiguientes(nivel) == null){
+                    nivel--;
+                    if (nivel ==-1) break;
+                }
+            }
+            while (aux.getSiguientes(nivel).getValor().compareTo(data)>0) nivel--;
+            if(aux.getSiguientes(nivel).getValor() == data){
+                NodoSkipList<T> x = aux.getSiguientes(nivel);
+                x = x.getSiguientes(nivel);
+                if(aux==head) head.setSiguientes(x, nivel);
+                else aux.setSiguientes(x, nivel);
+                nivel--;
+            }
+        }
 
     }
 
     @Override
     public int Longitud() {
-        return 0;
+        int contador = 0;
+        NodoSkipList aux = head.getSiguientes(0);
+        while (aux!=null){
+            contador++;
+            aux = aux.getSiguientes(0);
+        }
+        return contador;
     }
 
     @Override
     public int Buscar(T data) {
-        return 0;
+        int nivel = head.getNivel()-1;
+        int contador = 1;
+        NodoSkipList<T> aux = head;
+        while (nivel!=-1){
+            while ((aux.getSiguientes(nivel) != null) && (aux.getSiguientes(nivel).getValor().compareTo(data) < 0)){
+                aux = aux.getSiguientes(nivel);
+                while (aux.getSiguientes(nivel) == null){
+                    nivel--;
+                    contador++;
+                    if (nivel ==-1) throw new RuntimeException("ERROR no se ha encontrado el elemento, se ha accedido a "+ contador+" posiciones");
+                }
+                contador++;
+            }
+            while ( aux.getSiguientes(nivel).getValor().compareTo(data)>0 && nivel != 0) {
+                nivel--;
+                contador++;
+            }
+            if( aux.getSiguientes(nivel).getValor() == data) return contador;
+            else throw new RuntimeException("ERROR no se ha encontrado el elemento, se ha accedido a "+ contador+" posiciones");
+
+
+        }
+
+        return contador;
     }
 }
