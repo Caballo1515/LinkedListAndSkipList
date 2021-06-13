@@ -4,7 +4,7 @@ public class NodoSkipList <T extends Comparable<T>> {
 
     public NodoSkipList(T valor, int niveles){
         this.valor = valor;
-        siguientes = new NodoSkipList[niveles];
+        siguientes = new NodoSkipList[niveles+1];
     }
 
     public T getValor() {
@@ -22,4 +22,6 @@ public class NodoSkipList <T extends Comparable<T>> {
     public void setSiguientes(NodoSkipList<T> siguiente, int nivel) {
         this.siguientes[nivel] = siguiente;
     }
+
+    public int getNivel() { return siguientes.length; }
 }
