@@ -16,16 +16,16 @@ public class SkipList <T extends Comparable<T>> implements Base<T>{
         int nivel = head.getNivel();
         while (nivel != 0) {
             nivel = nivel - 1;
-            NodoSkipList<T> current = head.getSiguientes(nivel);
+            NodoSkipList<T> x = head.getSiguientes(nivel);
 
             aux = aux + "Nivel: " + nivel + "\n";
-            if (current != null) {
-                aux = aux + current.getValor();
-                current = current.getSiguientes(nivel);
+            if (x != null) {
+                aux = aux + x.getValor();
+                x = x.getSiguientes(nivel);
             }
-            while (current != null) {
-                aux = aux + "," + current.getValor();
-                current = current.getSiguientes(nivel);
+            while (x != null) {
+                aux = aux + "," + x.getValor();
+                x = x.getSiguientes(nivel);
 
             }
             aux = aux + "\n";
