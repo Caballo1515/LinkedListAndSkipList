@@ -6,7 +6,7 @@ public class SkipList <T extends Comparable<T>> implements Base<T>{
     }
 
     public int nRandom(){
-        double x = Math.random()*6;
+        double x = Math.random()*10;
         return (int)Math.round(x);
     }
 
@@ -139,14 +139,9 @@ public class SkipList <T extends Comparable<T>> implements Base<T>{
                 }
                 contador++;
             }
-            while ( aux.getSiguientes(nivel).getValor().compareTo(data)>0 && nivel != 0) {
-                nivel--;
-                contador++;
-            }
-            if( aux.getSiguientes(nivel).getValor() == data) return contador;
+            if( aux.getSiguientes(nivel) != null && aux.getSiguientes(nivel).getValor() == data) return contador;
+            else if (nivel!=-1) nivel--;
             else throw new RuntimeException("ERROR no se ha encontrado el elemento, se ha accedido a "+ contador+" posiciones");
-
-
         }
 
         return contador;
