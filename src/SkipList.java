@@ -6,8 +6,13 @@ public class SkipList <T extends Comparable<T>> implements Base<T>{
     }
 
     public int nRandom(){
-        double x = Math.random()*10;
-        return (int)Math.round(x);
+        int contador = 0;
+        double p_nivel = 0.50;
+        while (Math.random() <= p_nivel) {
+            contador++;
+            p_nivel = p_nivel / 2;
+        }
+        return contador;
     }
 
     @Override

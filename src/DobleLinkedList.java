@@ -186,11 +186,11 @@ public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, 
     public int Buscar(T data) {
         int contador = 1;
         IteratorList<T> iterator = this.iterator();
-        while (!iterator.getIterator().getValor().equals(data) && iterator.getIterator()!=ultimo){
+        while (!(iterator.getIterator().getValor().compareTo(data) ==0) && iterator.getIterator()!=ultimo){
             contador++;
             iterator.next();
         }
-        if(!iterator.getIterator().getValor().equals(data)){
+        if(!(iterator.getIterator().getValor().compareTo(data)==0)){
             throw new RuntimeException("No existe este valor, se ha utilizado "+ contador + " veces la funcion");
         }
         return contador;
