@@ -1,4 +1,3 @@
-import java.util.Iterator;
 
 public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, Base<T>{
     NodoLinkedList<T> primero;
@@ -58,6 +57,7 @@ public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, 
     }
 
     public  void  Esborrar(){
+        //Se borra el elemento que es apuntado con el pdi
         if(primero==null){
             throw new RuntimeException("Lista vacia");
         }else{
@@ -91,7 +91,7 @@ public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, 
 
     @Override
     public IteratorList<T> iterator() {
-        return new IteratorList<T>(this);
+        return new IteratorList<>(this);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, 
 
     @Override
     public void Inserir(T data) {
-        NodoLinkedList<T> nodo = new NodoLinkedList<T>(data);
+        NodoLinkedList<T> nodo = new NodoLinkedList<>(data);
         if(primero==null){
             primero= nodo;
             ultimo = nodo;
@@ -128,6 +128,7 @@ public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, 
 
     @Override
     public void Esborrar(T data) {
+        //Borramos el elemento que entra por parametro
         if(primero==null){
             throw new RuntimeException("Lista vacia");
         }else{
@@ -173,10 +174,8 @@ public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, 
     @Override
     public int Longitud() {
         int contador = 0;
-        IteratorList<T> iterator = this.iterator();
-        while (iterator.hasNext()){
+        for (T ignored : this) {
             contador++;
-            iterator.next();
         }
         contador++;
         return contador;
@@ -198,15 +197,15 @@ public class DobleLinkedList <T extends Comparable<T>> implements  Iterable<T>, 
 
     @Override
     public String toString(){
-        String lista = "";
+        StringBuilder lista = new StringBuilder();
         IteratorList<T> iterator = this.iterator();
         if(primero!=null){
             do{
-                lista = lista + "<" + iterator.next() + ">";
+                lista.append("<").append(iterator.next()).append(">");
             }while (iterator.hasNext());
-            lista = lista + "<" + iterator.getIterator().getValor() + ">";
+            lista.append("<").append(iterator.getIterator().getValor()).append(">");
         }
 
-        return lista;
+        return lista.toString();
     }
 }
